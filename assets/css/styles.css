@@ -181,12 +181,34 @@ section[data-section]:last-child { border-bottom: 0; }
 .demo-item-txt { display: flex; flex-direction: column; }
 .demo-item-txt strong { color: var(--navy); font-size: .92rem; }
 
+/* ---------- requirements ---------- */
+.req-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.req-card { background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--blue);
+  border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow); }
+.req-card h3 { color: var(--navy); font-size: 1.02rem; margin-bottom: 10px; }
+.req-card ul { margin: 0; padding-left: 18px; color: #34404f; }
+.req-card li { margin: 4px 0; font-size: .92rem; }
+
+/* ---------- solution fit ---------- */
+.fit-legend { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.fit-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.fit-table { width: 100%; border-collapse: collapse; font-size: .9rem; background: var(--card); }
+.fit-table th { background: var(--wash); text-align: left; padding: 10px 12px; color: var(--navy); font-weight: 600; white-space: nowrap; }
+.fit-table td { padding: 10px 12px; border-top: 1px solid var(--line); vertical-align: top; }
+.fit-actions { white-space: nowrap; }
+.fit-pill { display: inline-block; font-size: .74rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+.fit-standard { background: #e3f0e9; color: #227a4b; }
+.fit-config { background: #e7f1ff; color: #1c6fb0; }
+.fit-isv { background: #f1e8ff; color: #6b3fc0; }
+.fit-custom { background: #fff2da; color: #8a6d00; }
+
 /* ---------- team ---------- */
 .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
 .member { display: flex; gap: 14px; background: var(--card); border: 1px solid var(--line);
   border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
 .avatar { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
   color: #fff; font-weight: 700; background: linear-gradient(135deg, var(--blue), var(--purple)); }
+.avatar-client { background: linear-gradient(135deg, var(--navy), var(--gold)); }
 .member-body { display: flex; flex-direction: column; gap: 2px; }
 .member-body h3 { color: var(--navy); font-size: 1.02rem; display: flex; align-items: center; gap: 8px; }
 .member-role { color: var(--muted); font-size: .86rem; }

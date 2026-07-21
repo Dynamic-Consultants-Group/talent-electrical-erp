@@ -15,6 +15,9 @@ below is an array of rows today (in `localStorage`) and becomes a table tomorrow
 | `notes`                                     | `note`           | many        |
 | `documents`                                 | `document`       | many        |
 | `demos`                                     | `demo`           | many        |
+| `requirements`                              | `requirement`    | many        |
+| `solutionFit`                               | `solution_fit`   | many        |
+| `stakeholders`                              | `stakeholder`    | many        |
 | `auditEvents`                               | `audit_event`    | many (log)  |
 
 ## Proposed Azure SQL DDL
@@ -93,6 +96,30 @@ CREATE TABLE demo (
   video_url     NVARCHAR(2048),
   duration_label NVARCHAR(32),
   [order]       INT
+);
+
+CREATE TABLE requirement (
+  id      NVARCHAR(64) PRIMARY KEY,
+  module  NVARCHAR(200),
+  items   NVARCHAR(MAX),         -- JSON array of strings (normalize to requirement_item if preferred)
+  [order] INT
+);
+
+CREATE TABLE solution_fit (
+  id             NVARCHAR(64) PRIMARY KEY,
+  area           NVARCHAR(200),
+  requirement    NVARCHAR(MAX),
+  classification NVARCHAR(64),    -- 'Standard BC' | 'Config / Power BI' | 'Third-Party ISV' | 'Customization'
+  approach       NVARCHAR(300),
+  [order]        INT
+);
+
+CREATE TABLE stakeholder (
+  id      NVARCHAR(64) PRIMARY KEY,
+  name    NVARCHAR(200),
+  role    NVARCHAR(200),
+  note    NVARCHAR(MAX),
+  [order] INT
 );
 
 CREATE TABLE audit_event (

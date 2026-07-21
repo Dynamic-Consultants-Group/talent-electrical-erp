@@ -194,6 +194,83 @@ TE.UI = (function () {
   }
   TE.UI_setDemo = function (id) { demoActive = id; TE.UI.renderAll(); };
 
+  // ---- REQUIREMENTS & SCOPE --------------------------------------------
+  function renderRequirements(rows) {
+    var el = document.getElementById("requirements");
+    if (!el) return;
+    var cards = rows.length ? rows.slice().sort(byOrder).map(reqCard).join("") : emptyNote("No requirements captured yet.");
+    el.innerHTML =
+      sectionHead("Requirements & Scope", "المتطلبات", admin() ? addBtn("addRequirement", "Add module") : "") +
+      '<p class="section-lead">The capabilities Talent Electricals needs across the business, captured from discovery.</p>' +
+      '<div class="req-grid">' + cards + "</div>";
+  }
+  function reqCard(r) {
+    var items = (r.items || []).map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("");
+    return '<article class="req-card">' +
+      "<h3>" + esc(r.module) + "</h3>" +
+      "<ul>" + items + "</ul>" +
+      adminRow("requirements", r.id) +
+      "</article>";
+  }
+
+  // ---- SOLUTION FIT -----------------------------------------------------
+  var FIT_CLASS = {
+    "Standard BC": "fit-standard",
+    "Config / Power BI": "fit-config",
+    "Third-Party ISV": "fit-isv",
+    "Customization": "fit-custom"
+  };
+  function renderSolutionFit(rows) {
+    var el = document.getElementById("solution");
+    if (!el) return;
+    var sorted = rows.slice().sort(byOrder);
+    var body = sorted.length ? sorted.map(fitRow).join("") :
+      '<tr><td colspan="' + (admin() ? 5 : 4) + '" class="muted">No mapping captured yet.</td></tr>';
+    el.innerHTML =
+      sectionHead("Solution Fit", "الحل المقترح", admin() ? addBtn("addSolutionFit", "Add item") : "") +
+      '<p class="section-lead">How Microsoft Dynamics 365 Business Central and Dynapay map to Talent\'s requirements. Most needs are met by standard Business Central; the items below indicate where an ISV or customization is advised. <span class="muted">Advisory — confirmed at SPEAR L3/L4.</span></p>' +
+      '<div class="fit-legend">' +
+        legendPill("Standard BC") + legendPill("Config / Power BI") + legendPill("Third-Party ISV") + legendPill("Customization") +
+      "</div>" +
+      '<div class="fit-table-wrap"><table class="fit-table"><thead><tr>' +
+        "<th>Area</th><th>Requirement</th><th>Classification</th><th>Delivery approach</th>" +
+        (admin() ? "<th></th>" : "") +
+      "</tr></thead><tbody>" + body + "</tbody></table></div>";
+  }
+  function fitRow(f) {
+    return "<tr>" +
+      "<td>" + esc(f.area) + "</td>" +
+      "<td>" + esc(f.requirement) + "</td>" +
+      '<td><span class="fit-pill ' + (FIT_CLASS[f.classification] || "") + '">' + esc(f.classification) + "</span></td>" +
+      "<td>" + esc(f.approach) + "</td>" +
+      (admin() ? '<td class="fit-actions">' + itemEditBtn("solutionFit", f.id) + delBtn("solutionFit", f.id) + "</td>" : "") +
+      "</tr>";
+  }
+  function legendPill(label) { return '<span class="fit-pill ' + (FIT_CLASS[label] || "") + '">' + esc(label) + "</span>"; }
+
+  // ---- STAKEHOLDERS -----------------------------------------------------
+  function renderStakeholders(rows) {
+    var el = document.getElementById("stakeholders");
+    if (!el) return;
+    var cards = rows.length ? rows.slice().sort(byOrder).map(shCard).join("") : emptyNote("No stakeholders captured yet.");
+    el.innerHTML =
+      sectionHead("Client Stakeholders", "أصحاب القرار", admin() ? addBtn("addStakeholder", "Add stakeholder") : "") +
+      '<p class="section-lead">Key decision-makers and the approval process at Talent Electricals.</p>' +
+      '<div class="team-grid">' + cards + "</div>";
+  }
+  function shCard(s) {
+    return '<article class="member">' +
+      '<div class="avatar avatar-client">' + esc(TE.util.initials(s.name)) + "</div>" +
+      '<div class="member-body">' +
+        "<h3>" + esc(s.name) + "</h3>" +
+        '<p class="member-role">' + esc(s.role) + "</p>" +
+        (s.note ? '<p class="muted small">' + esc(s.note) + "</p>" : "") +
+        adminRow("stakeholders", s.id) +
+      "</div></article>";
+  }
+
+  function byOrder(a, b) { return (a.order || 0) - (b.order || 0); }
+
   // ---- TEAM -------------------------------------------------------------
   function renderTeam(rows) {
     var el = document.getElementById("team");
@@ -239,7 +316,10 @@ TE.UI = (function () {
     renderRecordings(TE.Store.list("recordings"));
     renderNotes(TE.Store.list("notes"));
     renderDocuments(TE.Store.list("documents"));
+    renderRequirements(TE.Store.list("requirements"));
+    renderSolutionFit(TE.Store.list("solutionFit"));
     renderDemos(TE.Store.list("demos"));
+    renderStakeholders(TE.Store.list("stakeholders"));
     renderTeam(TE.Store.list("team"));
     document.body.classList.toggle("admin-on", admin());
     var badge = document.getElementById("admin-badge");

@@ -14,7 +14,7 @@ window.TE = window.TE || {};
 
 TE.Store = (function () {
   var PREFIX = "te_erp_v1:";
-  var COLLECTIONS = ["project", "stages", "team", "recordings", "notes", "documents", "demos", "auditEvents"];
+  var COLLECTIONS = ["project", "stages", "team", "recordings", "notes", "documents", "demos", "requirements", "solutionFit", "stakeholders", "auditEvents"];
 
   function key(name) { return PREFIX + name; }
 
@@ -44,19 +44,17 @@ TE.Store = (function () {
     }
   }
 
-  // Seed on first run so the page has content out of the box.
+  // Seed on first run, and backfill any collection missing from an older
+  // seed so returning visitors pick up new sections without losing edits.
   function ensureSeeded() {
-    if (readRaw("__seeded__")) return;
     var s = TE.SEED;
-    writeRaw("project", s.project);
-    writeRaw("stages", s.stages);
-    writeRaw("team", s.team);
-    writeRaw("recordings", s.recordings);
-    writeRaw("notes", s.notes);
-    writeRaw("documents", s.documents);
-    writeRaw("demos", s.demos);
-    writeRaw("auditEvents", []);
-    writeRaw("__seeded__", { at: new Date().toISOString(), schemaVersion: s.schemaVersion });
+    var first = !readRaw("__seeded__");
+    ["project", "stages", "team", "recordings", "notes", "documents", "demos", "requirements", "solutionFit", "stakeholders"]
+      .forEach(function (name) {
+        if (readRaw(name) == null && s[name] != null) writeRaw(name, s[name]);
+      });
+    if (readRaw("auditEvents") == null) writeRaw("auditEvents", []);
+    if (first) writeRaw("__seeded__", { at: new Date().toISOString(), schemaVersion: s.schemaVersion });
   }
 
   // ---- public API (all sync today; return values ready for async later) --

@@ -139,7 +139,10 @@ TE.Admin = (function () {
     addNote: function () { noteForm(); },
     addDocument: function () { documentForm(); },
     addDemo: function () { demoForm(); },
-    addMember: function () { memberForm(); }
+    addMember: function () { memberForm(); },
+    addRequirement: function () { requirementForm(); },
+    addSolutionFit: function () { solutionFitForm(); },
+    addStakeholder: function () { stakeholderForm(); }
   };
 
   function recordingForm(r) {
@@ -199,12 +202,45 @@ TE.Admin = (function () {
       function (d) { save("team", m.id, d, "team member"); });
   }
 
-  function save(coll, id, row, label) {
-    if (id) { TE.Store.update(coll, id, row); TE.Analytics.logAdmin("edit " + label, row.title || row.name); }
-    else { TE.Store.add(coll, row); TE.Analytics.logAdmin("add " + label, row.title || row.name); }
+  function requirementForm(x) {
+    x = x || {};
+    modal(x.id ? "Edit requirement module" : "Add requirement module",
+      field("Module", "module", x.module, "text", "e.g. Manufacturing") +
+      field("Items (one per line)", "items", (x.items || []).join("\n"), "textarea") +
+      field("Order", "order", x.order, "number"),
+      function (d) {
+        d.items = (d.items || "").split("\n").map(function (s) { return s.trim(); }).filter(Boolean);
+        d.order = Number(d.order) || 0;
+        save("requirements", x.id, d, "requirement");
+      });
+  }
+  function solutionFitForm(x) {
+    x = x || {};
+    modal(x.id ? "Edit solution-fit item" : "Add solution-fit item",
+      field("Area", "area", x.area) +
+      field("Requirement", "requirement", x.requirement, "textarea") +
+      field("Classification (Standard BC / Config / Power BI / Third-Party ISV / Customization)", "classification", x.classification || "Standard BC") +
+      field("Delivery approach", "approach", x.approach) +
+      field("Order", "order", x.order, "number"),
+      function (d) { d.order = Number(d.order) || 0; save("solutionFit", x.id, d, "solution-fit item"); });
+  }
+  function stakeholderForm(x) {
+    x = x || {};
+    modal(x.id ? "Edit stakeholder" : "Add stakeholder",
+      field("Name", "name", x.name) +
+      field("Role", "role", x.role) +
+      field("Note", "note", x.note, "textarea") +
+      field("Order", "order", x.order, "number"),
+      function (d) { d.order = Number(d.order) || 0; save("stakeholders", x.id, d, "stakeholder"); });
   }
 
-  var editForms = { recordings: recordingForm, notes: noteForm, documents: documentForm, demos: demoForm, team: memberForm };
+  function save(coll, id, row, label) {
+    if (id) { TE.Store.update(coll, id, row); TE.Analytics.logAdmin("edit " + label, row.title || row.name || row.module || row.area); }
+    else { TE.Store.add(coll, row); TE.Analytics.logAdmin("add " + label, row.title || row.name || row.module || row.area); }
+  }
+
+  var editForms = { recordings: recordingForm, notes: noteForm, documents: documentForm, demos: demoForm, team: memberForm,
+    requirements: requirementForm, solutionFit: solutionFitForm, stakeholders: stakeholderForm };
 
   // ------------------------------------------------------- EVENT WIRING
   function handleClick(e) {
