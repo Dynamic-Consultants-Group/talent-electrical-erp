@@ -1,28 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talent Electrical ERP</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #0f172a;
-            color: #f8fafc;
-        }
-        h1 { font-size: 2.5rem; }
-        p { color: #94a3b8; margin-top: 0.5rem; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talent Electricals × DCG — Project Workspace</title>
+  <meta name="description" content="Dynamic Consultants Group project workspace for the Talent Electricals ERP engagement — Microsoft Dynamics 365 Business Central, Sultanate of Oman.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <div style="text-align: center;">
-        <h1>Talent Electrical ERP</h1>
-        <p>Coming soon</p>
+
+  <!-- top bar -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="logo">DCG</span>
+        <span>Dynamic Consultants Group<small>Talent Electricals · Project Workspace</small></span>
+      </div>
+      <div class="spacer"></div>
+      <nav class="nav-links">
+        <a href="#summary" data-track="nav:overview">Overview</a>
+        <a href="#recordings" data-track="nav:recordings">Recordings</a>
+        <a href="#notes" data-track="nav:notes">Notes</a>
+        <a href="#documents" data-track="nav:documents">Documents</a>
+        <a href="#demos" data-track="nav:demos">Demos</a>
+        <a href="#team" data-track="nav:team">Team</a>
+      </nav>
+      <span id="admin-badge">● Admin mode</span>
+      <button id="admin-toggle" class="btn ghost sm">Admin</button>
     </div>
+    <!-- admin toolbar -->
+    <div class="admin-tools-wrap">
+      <div id="admin-tools">
+        <span class="label">Admin tools:</span>
+        <button id="audit-open" class="btn ghost sm" data-track="admin:openAudit">📊 Audit log</button>
+        <button id="data-export" class="btn ghost sm" data-track="admin:export">⭳ Export data</button>
+        <button id="data-import" class="btn ghost sm" data-track="admin:import">⭱ Import data</button>
+        <button id="data-reset" class="btn ghost sm" data-track="admin:reset">↺ Reset to seed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <header id="hero" data-section="hero"></header>
+
+  <!-- sales-process progress bar -->
+  <div id="progress"></div>
+
+  <!-- content -->
+  <main>
+    <section id="summary" data-section="summary"></section>
+    <section id="recordings" data-section="recordings"></section>
+    <section id="notes" data-section="notes"></section>
+    <section id="documents" data-section="documents"></section>
+    <section id="demos" data-section="demos"></section>
+    <section id="team" data-section="team"></section>
+  </main>
+
+  <footer>
+    <p><strong>Dynamic Consultants Group</strong> — Built on Grit. Guided by Purpose.</p>
+    <p class="small">Confidential project workspace prepared for Talent Electricals · Sultanate of Oman · سلطنة عُمان</p>
+  </footer>
+
+  <!-- audit panel -->
+  <aside id="audit-panel" aria-hidden="true">
+    <div class="audit-head">
+      <h3>📊 Engagement Audit Log</h3>
+      <button id="audit-clear" class="btn ghost sm">Clear</button>
+      <button id="audit-close" class="btn ghost sm">Close</button>
+    </div>
+    <div id="audit-body"></div>
+  </aside>
+
+  <!-- modal mount -->
+  <div id="te-modal"></div>
+
+  <!-- scripts: order matters (globals, no bundler) -->
+  <script src="data/seed.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/analytics.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/admin.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice">
+  <!-- Omani skyline silhouette: dunes, fort towers, mosque dome + minaret. White = visible via CSS mask. -->
+  <g fill="#ffffff">
+    <!-- back dune -->
+    <path d="M0 210 C 220 150 420 190 640 165 C 900 135 1080 200 1440 150 L1440 260 L0 260 Z" opacity="0.55"/>
+    <!-- fort (Nizwa-style round tower) left -->
+    <path d="M150 150 h150 v110 h-150 Z"/>
+    <rect x="140" y="150" width="170" height="14"/>
+    <path d="M150 150 l0 -14 l12 0 l0 8 l12 0 l0 -8 l12 0 l0 8 l12 0 l0 -8 l12 0 l0 8 l12 0 l0 -8 l12 0 l0 8 l12 0 l0 -8 l12 0 l0 8 l12 0 l0 -8 l12 0 l0 14 Z"/>
+    <circle cx="360" cy="150" r="58"/>
+    <rect x="302" y="150" width="116" height="110"/>
+    <!-- mosque dome + minaret centre -->
+    <rect x="640" y="150" width="200" height="110"/>
+    <path d="M740 150 a52 60 0 0 1 -100 0 Z" transform="translate(0,0)"/>
+    <path d="M690 92 a48 58 0 0 1 -96 0 a48 48 0 0 1 96 0 Z" transform="translate(52,58)"/>
+    <path d="M742 90 l6 -22 l6 22 Z"/>
+    <rect x="744" y="60" width="8" height="10"/>
+    <!-- minaret -->
+    <rect x="856" y="70" width="26" height="190"/>
+    <path d="M853 70 h32 l-6 -14 h-20 Z"/>
+    <path d="M866 44 l4 -16 l4 16 Z"/>
+    <rect x="859" y="96" width="20" height="6"/>
+    <rect x="859" y="120" width="20" height="6"/>
+    <!-- low buildings right -->
+    <rect x="980" y="176" width="90" height="84"/>
+    <rect x="1080" y="160" width="70" height="100"/>
+    <rect x="1160" y="186" width="110" height="74"/>
+    <rect x="1280" y="168" width="60" height="92"/>
+    <!-- front dune -->
+    <path d="M0 235 C 260 205 520 245 820 225 C 1100 208 1300 250 1440 220 L1440 260 L0 260 Z" opacity="0.85"/>
+  </g>
+</svg>
