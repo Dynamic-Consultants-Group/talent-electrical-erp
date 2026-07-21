@@ -32,6 +32,11 @@ TE.UI = (function () {
     el.innerHTML =
       '<div class="hero-scene" aria-hidden="true"></div>' +
       '<div class="hero-inner">' +
+        '<div class="hero-logos">' +
+          '<img class="hero-logo-dcg" src="assets/img/dcg-logo-white.png" alt="Dynamic Consultants Group">' +
+          '<span class="hero-logo-x">×</span>' +
+          '<img class="hero-logo-talent" src="assets/img/talent-mark.png" alt="Talent Electric Services SAOC">' +
+        "</div>" +
         '<p class="hero-kicker">' + esc(p.heroKicker) + "</p>" +
         '<h1 class="hero-ar" dir="rtl" lang="ar">' + esc(p.heroTitleAr) + "</h1>" +
         '<h2 class="hero-title">' + esc(p.heroTitleEn) + "</h2>" +
